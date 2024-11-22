@@ -4,6 +4,71 @@
 
 module modern_cpp:variadic_templates;
 
+// printf ...
+
+namespace VariadicTemplates_Seminar {
+
+    void printer(int n) {
+
+        std::cout << n << std::endl;
+    }
+
+    template <typename T, typename ... U>
+    void printer(T n, U ... m) {
+
+        std::cout << n << std::endl;
+        printer(m ...);   // Überladung // auspacken
+    }
+
+    // C++ 23 // möglicherweise C++ 20
+
+
+    //void printer(auto n) {
+
+    //    std::cout << n << std::endl;
+    //}
+
+    //void printer(auto n, auto ... m) {
+
+    //    std::cout << n << std::endl;
+    //    printer(m ...);   // Überladung // auspacken
+    //}
+
+
+    // C++ 17
+    //template <typename T, typename ... TRest>
+    //void printer(T n, TRest ... args) {
+
+    //    std::cout << n << std::endl;
+
+    //    if constexpr ( sizeof... (args ) > 0)  // == 0
+    //    {
+    //        printer(args ...);   // Überladung // auspacken
+    //    }
+    //}
+
+
+    //void printer(auto n, auto ... args) {
+
+    //    std::cout << n << std::endl;
+
+    //    if constexpr ( sizeof... (args ) > 0)  // == 0
+    //    {
+    //        printer(args ...);   // Überladung // auspacken
+    //    }
+    //}
+
+    void test_variadic_seminar() {
+
+        printer<int, int, int, int>( 1, 2, 3, 4 );   // 2, 3, 4, 5: einpacken: Parameter Pack von Variablen
+                                                // int, int, int, int: einpacken: Parameter Pack von Datentypen
+
+    }
+
+}
+
+
+
 namespace VariadicTemplatesIntro_01 {
 
     // ====================================================================
@@ -279,8 +344,14 @@ namespace VariadicTemplatesIntro_05 {
     }
 }
 
+
+
 void main_variadic_templates_introduction()
 {
+    using namespace VariadicTemplates_Seminar;
+    test_variadic_seminar();
+    return;
+
     using namespace VariadicTemplatesIntro_01;
     test_printer_01();
 

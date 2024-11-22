@@ -19,12 +19,31 @@ module;
 
 module modern_cpp:const_expr;
 
+
+void test_nochmal_lambda()
+{
+    []() {};
+
+    [] {};
+
+    []() {} ();
+
+    constexpr auto result = []() { return 123; } ();
+
+    // C++: Macros -- Berechnungen
+    // Komplexe Konstanten
+    constexpr auto res = []() {
+        return 123; 
+    } ();
+}
+
+
 constexpr uint8_t MY_POLYNOM = 0x07;
 constexpr int TABLE_SIZE = 256;
 
 template<uint8_t POLYNOM>
-constexpr auto crcTable{
-    []() {
+constexpr auto crcTable {
+    [] () {
         std::array<uint8_t, TABLE_SIZE> A {};
         for (int i = 0; i < TABLE_SIZE; i++) {
             A[i] = i;
@@ -38,7 +57,7 @@ constexpr auto crcTable{
             }
         }
         return A;
-    }() 
+    } () 
 };
 
 static constexpr auto calcCRC(uint8_t len, const uint8_t* data) {
@@ -52,7 +71,9 @@ static constexpr auto calcCRC(uint8_t len, const uint8_t* data) {
 void main_constexpr_crc()
 {
     constexpr uint8_t message[]{ "Hello World" };
+
     constexpr uint8_t checksum{ calcCRC(11, message) };
+
     std::cout << "Checksum is: " << std::hex << static_cast<int>(checksum) << std::endl;
     for (size_t i{}; i != 256; ++i) {
         std::cout << static_cast<int>(crcTable<MY_POLYNOM>[i]) << std::endl;

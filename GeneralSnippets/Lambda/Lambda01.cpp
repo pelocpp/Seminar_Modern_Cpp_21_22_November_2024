@@ -204,6 +204,8 @@ namespace Lambdas {
             return x + y + z;
         };
 
+        lll(1, 2, 3);
+
         // Signatur
         std::function< int(int, int, int)  > lll2 = [](int x, int y, int z) -> int {
             return x + y + z;

@@ -50,10 +50,23 @@ namespace CopyMoveElision {
     }
 }
 
+class XXX
+{
+   // using namespace CopyMoveElision;
+
+    void test()
+    {
+        using CopyMoveElision::test_copy_elision;
+
+        test_copy_elision();
+    }
+};
+
+
 void main_copy_move_elision()
 {
     using namespace CopyMoveElision;
-    test_copy_elision();
+    CopyMoveElision::test_copy_elision();
 }
 
 // =====================================================================================

@@ -411,3 +411,240 @@ Frage:
 
 Algorithmen
 
+Sequentielle Container haben den Operator []
+Andere NICHT !!!!!!!
+
+
+int n = 123;
+
+using iterator = VectorIterator<T>;
+
+typedef VectorIterator<T> iterator;    // 3 %, wo in Modern C++ der typedef nicht geht
+
+Nachmittag: using
+
+==============================================
+
+using:
+
+Mehrfach verwendet ....
+
+== Definition von Datentyp
+== NAmensräumen
+
+
+==========================================================
+
+Online Compiler:
+
+Wandbox
+
+==========================================================
+
+The return of printf : println
+
+C++ 23
+
+==========================================================
+
+Cpp Insights:
+
+Keine Ausführung:
+
+Abbildung "Modern C++" ===> "Classic C++"
+
+Lambda ===> Funktor plus anon. Klasse
+
+for_each  ==>  std::for_each
+
+
+==========================================================
+
+Container:
+
+2 Methoden: begin // end
+
+==> Iterator // Position
+
+Achtung: Via end wird nicht die "letzte gültige" Position zurückgeliefert,
+         sondern die danach.
+
+Das macht das Leben einfacher:
+
+Formulierung:  it != values.end ();   !!!!!!!!!!
+
+
+for (auto it{ values.begin() }; it != values.end(); ++it) {
+    sum += *it;
+}
+
+==========================================================
+
+constexpr
+
+Praxis-nah   ==> Ist zu diskutieren !!!
+
+        constexpr Complex c3 = c1 + c2;
+00007FF792E56570  movss       xmm0,dword ptr [__real@40800000 (07FF79305CD10h)]  
+00007FF792E56578  movss       dword ptr [c3],xmm0  
+00007FF792E56580  movss       xmm0,dword ptr [__real@40a00000 (07FF79305CD14h)]  
+00007FF792E56588  movss       dword ptr [rbp+8Ch],xmm0  
+
+4.0 == 40800000
+
+5.0 == 40a00000
+
+        Complex c3 = c1 + c2;
+00007FF6208C65FF  lea         r8,[c2]  
+00007FF6208C6603  lea         rdx,[c3]  
+00007FF6208C660A  lea         rcx,[c1]  
+00007FF6208C660E  call        ConstExprComplex::Complex::operator+ (07FF620835D4Ch)  
+
+
+Frage: Anwendung ?????????????????????
+
+Tabellen // Daten, ROM , Vorab berechnen möchte // Laufzeit 
+
+CRC
+
+===============================================
+
+"Der Compiler"
+
+Mythos:   C++  // Standard //
+
+https://en.cppreference.com/w/
+
+C++ 11 / 14 // 17 // 20 // 23
+
+Bemerkung: Nicht immer ist "aktuell" schon jeder Compiler umgestellt.
+
+Beobachtung: gcc // println
+
+inline <==== Hier trifft der Compiler gewisse Entscheidungen.
+
+constexpr: Definition.
+
+Call-to-ACtion:
+
+Was muss in meinem Programm nicht zwingend zur LAufzeit berechnet werden ????
+
+Was kann man rausziehen ???
+
+    // C++: Macros -- Berechnungen
+    // Komplexe Konstanten
+    constexpr auto result = []() {
+        return 123; 
+    } ();
+
+a) Kollegen :=)
+
+b) Sind die Compiler ausgereift: Ja, sie sind es!
+
+IMHO
+
+Numerische Berechnungen
+
+Gleitpunktarithmetik  // Genauigkeit
+
+
+Versuch: Irgendwie diesselbe math. Bibliothek.
+
+Boost:  
+
+float128
+
+#include <boost/multiprecision/float128.hpp>
+
+
+Literaturhinweis:
+
+Real-Time C++: Efficient Object-Oriented and Template Microcontroller Programming Hardcover – March 27, 2012
+by Christopher Michael Kormanyos (Author)
+
+
+Github:
+
+
+https://github.com/ckormanyos
+
+========================================================
+
+Literale // Konstante
+
+UDL:  User defined Literal
+
+123
+
+123.465
+
+123.456f
+
+123_km
+
+123_kg
+
+123_pound
+
+0xFF0000_farbe
+
+"11:19:22"_uhrzeit
+
+C/C++:   Lexikon  ==> Konstanten
+
+Lexikon von C++ erweitern.
+
+a) operator ""
+
+b) Syntax:    return_type operator "" SUFFIX (parameter)
+
+              return_type operator "" _rgb (parameter)
+
+              parameter:
+
+              unsigned long long
+              long double
+              char*
+
+Beispiel:
+
+0x_FF0000_rgb ==> class Color
+
+Frage zu constexpr:
+
+Ist throw erlaubt ????
+
+Offizielle Antwort // Standard: NEIN
+
+Die meisten Compiler akzeptieren jedoch throw !!!
+
+===========================
+
+constexpr: Ab C++ 11
+
+===========================
+
+Variadische Templates:
+
+C++ 11:
+
+Nicht einfach.
+
+Ziel:
+
+a) Wir sollten sie lesen können.
+
+b) Ihr Verständnis hilft uns, C++ besser zu verstehen ...
+
+c) Why ???????????????????????????????????
+
+Frage:
+
+Brauchen wir die Funktion 'printer' mit einem Parameter ???
+
+Depends :-)))
+
+C++ 11: JA
+
+Darüber (C++ 17): NEIN.
+

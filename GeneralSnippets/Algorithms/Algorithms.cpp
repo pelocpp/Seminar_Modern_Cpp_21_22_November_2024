@@ -10,12 +10,29 @@ module modern_cpp:algorithms;
 
 namespace Algorithms {
 
-    //static constexpr int MaxIterations = 100'000'000;  // release
-    static constexpr int MaxIterations = 10'000'000;     // debug
+    static constexpr int MaxIterations = 100'000'000;  // release
+    //static constexpr int MaxIterations = 10'000'000;     // debug
 
     // =================================================================================
     // Initialization with a constant value
     // =================================================================================
+
+    static auto test_frage()
+    {
+        std::println("Using a classic for-loop");
+
+        std::vector<double> values(MaxIterations);
+
+        // adasdsad 
+
+        using ElementType = std::vector<double>::value_type;
+
+        double init = 123.0;
+
+        for (size_t i{}; i != values.size(); ++i) {
+            values[i] = init;
+        }
+    }
 
     static auto test_constant_initialize_classic_for_loop()
     {
@@ -51,6 +68,7 @@ namespace Algorithms {
 
         ScopedTimer watch{};
 
+        // Bibliotheksfunktion STL
         std::fill(
             values.begin(),
             values.end(),
@@ -66,9 +84,11 @@ namespace Algorithms {
 
         ScopedTimer watch{};
 
+        // Traversieren des Containers (lesend / Schreibend)
         std::for_each(
             values.begin(),
             values.end(),
+            
             [](auto& elem) { elem = 123.0; }
         );
     }
@@ -84,7 +104,7 @@ namespace Algorithms {
         std::generate(
             values.begin(),
             values.end(),
-            [] { return 123.0; }
+            [] () { return 123.0; }
         );
     }
 
@@ -214,12 +234,31 @@ namespace Algorithms {
 
         ScopedTimer watch{};
 
+        // C++: for_each  // using // static
+        // Range-Based Loop
+
+        // Syntax
+
+        //for (typ varname : container)
+        //{
+
+        //}
+
         double sum{};
         for (const auto& value : values) {
             sum += value;
         }
 
         return sum;
+
+        //std::vector<double>::iterator __begin1 = values.begin();
+        //std::vector<double>::iterator __end1 = values.end();
+        //for ( ;__begin1 != __end1 ; __begin1.operator++()) {
+
+        //    double const& value = __begin1.operator*();
+        //    sum = sum + value;
+        //}
+        //return sum;
     }
 
     static auto test_calculate_sum_std_for_each(std::vector<double>& values)
@@ -227,6 +266,8 @@ namespace Algorithms {
         std::println("Standard Algorithm - std::for_each:");
 
         ScopedTimer watch{};
+
+        // std::for_each sperriger als eine Range-based Loop
 
         double sum{};
         std::for_each(
@@ -294,8 +335,8 @@ namespace Algorithms {
 void main_algorithms()
 {
     using namespace Algorithms;
-    test_const_initialization();
-    test_initialization();
+    //test_const_initialization();
+    // test_initialization();
     test_sum_calculation();
 }
 

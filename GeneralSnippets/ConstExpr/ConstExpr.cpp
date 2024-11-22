@@ -38,6 +38,7 @@ namespace ConstExprComplex {
 
         constexpr float r1 = c1.real();
         constexpr Complex c3 = c1 + c2;
+        constexpr Complex c33{ 4.0, 5.0 };   // c'tor
         constexpr float r2 = c3.real();
 
         // verify 'constness' with the help of disassembly and
