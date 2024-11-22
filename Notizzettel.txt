@@ -1,0 +1,413 @@
+// =================
+
+Updates Modern C++
+
+Guten Morgen
+
+Peter Loos  // Du
+
+peter.loos@gmx.de
+
+// =================
+
+C / C++ ,  C#,  Java, Mobile Progr. (Java), Dart, 
+
+Back-to-the-Roots: C++
+
+// =================
+
+== 2 Tools
+
+-- Visual Studio (95%)
+
+-- Github: Unterlagen
+
+// =================
+
+Was sind meine Erwartungen
+
+== Überblick
+== Dieses Thema SOLL drin sein.
+== Muss nächste Woche diese Konzepte einsetzen
+== Will Modern C++ QUellcode lesen (verstehen) können
+== ....
+
+== Priorisierung nach Praxis Relevanz
+
+== Umstieg "Classic C++" nach "Modern C++"
+
+== Ab welcher Version ...
+
+== Einführung in die neuen Sprachelemente
+
+== emplace
+
+
+== Manche Konzepte verstehen und umsetzen / anwenden können
+== Manche Konzepte verstehen können ... und "später" anwenden können
+
+
+// =================
+
+Versionen:
+
+C++ 11:
+
+C++ 14: Zwischenversion
+
+C++ 17: Utility-Klassen
+
+C++ 20: Concepts / Requirements
+
+// enums
+
+// =================
+
+a + b:  Temporäres Objekt
+
+Objekt ohne Namen.
+
+Wie ist eine Referenz in C++ definiert:
+
+Als Alias == Da muss ein benanntes Objekt vorhanden sein.
+
+std::string a = "Hello";
+
+std::string& ra = a; 
+
+Beobachtung:
+
+Man möchte temp. Objekte als Referenz übergeben können
+und diese auch verändern können:
+
+===> Move-Semantik
+
+std::string&     LValue-Referenz  (C: Links  // Left - Value)
+
+std::string&&    RValue-Referenz  (C: Rechts // Right - Value)
+
+Ist fürTemporäres Objekte,
+Objekte ohne Namen.
+
+Whyyyyyyyyyyyyyyyyy ????????????????????????????????
+
+==================================================
+
+Move - Semantik:
+
+... CD0:   temp. Objekt am Stack  // wird freigegeben
+
+... D40:   ist im Vektor drin
+
+==================================================
+
+C++  ==========>  Performanz
+
+Aber: Schwächen:   Überflüssige Kopien
+
+---------------------------------------
+
+C#, Java, ....
+
+Idiom:
+
+Referenz-basiert: new
+
+C++:
+
+Stack-basiert:      als Value am Stack
+Referenz-basiert:   new / delete
+
+------------------------------------------
+
+Move-Semantik:
+
+Kopier-Konstruktor
+operator=
+
+Verschiebe-Konstruktor
+Verschiebenden operator=
+
+2. Beispiel:
+
+... 110:   am Stack / anonym / keinen Namen
+
+... 580
+
+
+Bild zu Rule-of-Three:
+
+https://github.com/pelocpp/cpp_introduction/blob/master/Cpp_Introduction/Markdown/RuleOfThree.md
+
+=============================================================
+
+12.30   45 Minuten
+
+
+auto
+
+Hat mehrere Einsatzfelder
+
+=============================================================
+
+Templates
+
+C++:
+
+Hat viele Idiome:
+
+== objekt-orientierte Sprache
+== generische Sprache (Templates)
+
+C++:                       Bjarne Stroustrup  // C with Classes
+
+Generische Programmierung: Alexander Alexandrowitsch Stepanow
+
+Bibliothek: STL std::vector<T>
+
+
+Generische Programmierung: 
+
+==========> Performanz  
+
+Pro Typ eine eigene Klasse / Funktion optimal code-generiert wird.
+
+================================================
+
+Initialisierung:
+
+int n = 123;
+
+int n{ 123 };
+
+double d1 = ival;      // Compiles
+00007FF746878F50  cvtsi2sd    xmm0,dword ptr [ival]  
+00007FF746878F55  movsd       mmword ptr [d1],xmm0  
+
+========================================
+
+Lambdas
+
+Aufrufbares Objekt 
+
+"Callable"
+
+Funktor  // Mathematik
+
+
+Blick hinter die Kulissen: Ein Lambda ist ein aufrufbares Objekt.
+
+Anmerkung: Lambda-Funktion   
+
+NEIN: ein Lambda ist ein OBJEKT !!!!!!!!!!!!!
+
+Syntax: Ist anders.
+
+Ein Lambda ist ein OBJEKT einer (anonymen) Klasse.
+
+Klasse:  Variablen und Funktionen.
+
+==========================================================
+
+Smart-Pointer
+
+new / delete
+
+delete wird vergessen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Suche nach fehlenden delete's:  Death March 
+
+"Death March" 
+
+von Edward Yourdon (Autor)
+
+Lösungen.
+
+Idee:
+
+a) Klassen und Objekte
+
+b) Konstruktoren 
+   Destruktoren
+
+c) Wann wird ein Destruktor aufgerufen:
+
+   Am Ende der Lebenszeit des Objekts: DETERMINISTISCH.
+
+   {
+      ...
+   }
+
+d) Idee:   new ==> Zeiger.
+
+Hüllenobjekt:
+
+Konstruktoren ==> Zeiger
+Destruktor    ==> delete
+
+e) std::auto_ptr  ===> deprecated
+
+f) std::shared_ptr
+   std::unique_ptr
+   std::weak_ptr
+
+Setzen diese Idee um.
+
+g) Strategien:
+
+std::unique_ptr:
+
+Ein std::unique_ptr-Objekt kann zu einem Zeitpunkt
+nur EINEN Besitzer haben.
+
+Man kann std::unique_ptr-Objekte NICHT kopieren.
+
+-------------------------
+
+std::shared_ptr:
+
+Ein std::shared_ptr-Objekt kann zu einem Zeitpunkt
+mehrere Besitzer haben.
+
+===> Hauch von C# // Garbage Collection
+
+std::weak_ptr
+
+-------------------------
+
+Copy/Move Elision	Auslassen von Kopier- oder Verschiebe-Operationen
+
+Return Value Optimization (RVO)
+
+Named Return Value Optimization (NRVO)
+
+=======================================
+
+Strategien bei Zeigern:
+
+Per Pointer übergeben:
+
+int* ptr;  // new
+
+Regel:
+
+Es muss in der SW bekannt sein,
+wer der Besitzer (Owner) des Zeigers ist.
+
+Dieser darf dann delete aufrufen.
+
+Antwort:
+
+== Das Hauptprogramm
+== Das Modul "createAllBusinessObjects"
+== Die Funtion "createDynamicObjects"
+
+
+KÖNNTE: "Jede Funktion, an die ein Zeiger übergeben wird"
+
+KÖNNTE Sinnvoll gewesen sein.
+
+Unique versus Shared ???
+
+1. Ansatz:
+
+Go-for-Unique oder Go-for-Shared
+
+a) std::Unique:   Ein Unique-Ptr hat einen Besitzer.
+
+    muss ihn verschieben .... 
+
+b) std::shared
+
+========================================================
+
+Am Ende: Problem.
+
+Der Shared-Ptr funktioniert nicht immer :)))))))))))))))))))
+
+2 Beispiele:
+
+std::weak_ptr:
+
+a) Funktionsweise <===
+
+b) Whyyyyyyyyyyy ??????????????
+
+Zyklen.
+
+Vorsicht:
+
+Beispiel:
+
+Observer-Pattern:
+
+Quelle: Ist ein Objekt -- hat Status -- dieser ändert sich.
+
+Clients: Diese kennen die Quelle.
+
+         Diese interessieren sich für Änderungen am Status der Quelle
+
+         Diese melden sich an der Quelle an (register, attach, ...)
+
+Quelle:  Kennt Clients (Interface) 
+
+          Verwaltet Interface-Zeiger in einer Liste 
+
+Fazit:
+
+Quelle:  std::shared_ptr. !!!  Besitzer.
+
+Clients: Dto:  shared_ptr.  !!!  Besitzer.
+
+FRAGE:  Wir haben in der Quelle eine Liste  mit Client-Zeigern.
+
+       Sind das shared_ptr oder weak_ptr ??????
+
+a) wenn alle detaches kommen, dann passt es !!!
+
+b) Was passiert, wenn die Quelle "aus dem Scope" geht ..
+   oder als solche nicht mehr existert ..
+
+c) Was passiert, wenn ein Client aus dem Scope geht ...
+
+   und sich nicht abgemeldet hat: Sollte nicht sein.
+
+   Diskussion: Etwas "sauber" oder "stringent" führen:
+
+Alternative: Frage // Hinterfragt werden:
+
+Möchte / will eine Quelle für sich in Anspruch nehmen,
+zum "Besitzer" eines Clients zu werden ???
+
+attach: std::weak_ptr  // lock  // shared_ptr  // null_ptr
+
+==> Habe eine "Leiche"
+
+std::shared_ptr:    <===  Rolle eines Besitzer
+std::weak_ptr:       <===  Rolle eines temp. Besitzer
+
+Visualisierung:   Bauteile
+
+Bauteil:  shared_ptr
+Visualisierung:  shared_ptr ?????????????????????  std::weak_ptr
+
+                 nullptr
+
+
+is_part_of: Containment // FEST // std::shared
+
+loose Kopplung: weak_ptr   ... lock
+
+===========================================================
+
+Frage:
+------
+
+[=, &var1, &var2, member = 10]  // type deduction
+
+[&, var1, var2, member = 10]
+
+===========================================================
+
+Algorithmen
+
