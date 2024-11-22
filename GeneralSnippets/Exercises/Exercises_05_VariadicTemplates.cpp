@@ -213,7 +213,7 @@ namespace Exercises_VariadicTemplates {
         // Als Klassenschablone:
         // Unter Verwendung von Non-Type Parametern und von partieller Spezialisierung
 
-        template <int...>
+        template <int ...>
         class sum1;
 
         template <>

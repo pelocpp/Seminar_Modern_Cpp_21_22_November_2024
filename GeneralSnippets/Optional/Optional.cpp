@@ -46,9 +46,8 @@ namespace OptionalExamples {
 
     class Contact
     {
-
     private:
-        std::optional<std::string> m_phone;
+        std::optional<std::string> m_phone;  // ""
 
     public:
         Contact() : m_phone{ std::nullopt } {}
@@ -158,7 +157,7 @@ namespace OptionalExamples {
     }
 }
 
-void main_optional()
+void main_optional() 
 {
     using namespace OptionalExamples;
     test_01_optional();

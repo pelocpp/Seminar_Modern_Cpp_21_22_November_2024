@@ -58,13 +58,102 @@ namespace VariadicTemplates_Seminar {
     //    }
     //}
 
-    void test_variadic_seminar() {
+    void test_variadic_seminar_01() {
 
         printer<int, int, int, int>( 1, 2, 3, 4 );   // 2, 3, 4, 5: einpacken: Parameter Pack von Variablen
                                                 // int, int, int, int: einpacken: Parameter Pack von Datentypen
 
     }
 
+    // ==============================================================
+
+        // ========================================================================
+    // Test-Klasse Unknown
+    // Nur die Konstruktoren sind interessant
+    // ========================================================================
+
+    class Unknown {
+    private:
+        int m_var1;
+        int m_var2;
+        int m_var3;
+
+    public:
+        // Frage: Kann ich einen variadischen Konstruktor bauen ???
+        template <typename ...TArgs> 
+        Unknown(TArgs ... args) {
+            std::cout << "c'tor(...)" << std::endl;
+
+            // CTAD  Class Template Argument Deduction
+            std::vector zahlen{ 1, 2, 3 };   // C++ 20 
+
+            auto list = { args  ... };
+
+            std::initializer_list list2 = { args  ... };
+        }
+
+        Unknown() : m_var1{ -1 }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor()" << std::endl;
+        }
+
+        Unknown(int n) : m_var1{ n }, m_var2{ -1 }, m_var3{ -1 } {
+            std::cout << "c'tor(int)" << std::endl;
+
+        }
+        Unknown(double n, double n2) {
+            std::cout << "c'tor(double, double)" << std::endl;
+        }
+
+        Unknown(int n, int m) : m_var1{ n }, m_var2{ m }, m_var3{ -1 } {
+            std::cout << "c'tor(int, int)" << std::endl;
+        }
+
+        //Unknown(int n, int m, int k) : m_var1{ n }, m_var2{ m }, m_var3{ k } {
+        //    std::cout << "c'tor(int, int, int)" << std::endl;
+        //}
+
+        friend std::ostream& operator<< (std::ostream&, const Unknown&);
+    };
+
+    std::ostream& operator<< (std::ostream& os, const Unknown& obj) {
+        os
+            << "var1: " << obj.m_var1
+            << ", var2: " << obj.m_var2
+            << ", var3: " << obj.m_var3 << std::endl;
+
+        return os;
+    }
+
+    void test_variadic_seminar() {
+
+        Unknown u{ 1, 2, 3 };
+
+    }
+
+    // Motivation für Variadic Templates
+
+    template <int VALUE>
+    void ein_beispiel()
+    {
+        std::cout << "Wert: " << VALUE << std::endl;
+    }
+
+    template <typename T, typename ... TArgs>
+    
+    std::unique_ptr<T> my_make_unique(TArgs ... args)
+    {
+        std::unique_ptr<T> tmp{ new T { args ... } }; // auspacken: Komma-getrennte Liste erzeugen
+        return tmp;
+    }
+
+    void test_variadic_seminar_02() {
+
+        std::unique_ptr<int> ptr1 = std::make_unique<int>(123);
+
+        std::unique_ptr<Unknown> ptr2 = std::make_unique<Unknown>(11, 12, 13);
+
+        std::unique_ptr<Unknown> ptr3 = my_make_unique<Unknown>(11.5, 12.5);
+    }
 }
 
 

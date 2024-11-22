@@ -8,6 +8,46 @@ module;
 
 module modern_cpp:folding;
 
+namespace Folding_Seminar {
+
+
+    auto adder_01(auto ... args)
+    {
+        auto result = 0;
+
+        for (auto elem : { args ... } ) {
+            result += elem;
+        }
+
+        return result;
+    }
+
+    auto adder_02(auto ... args)
+    {
+        auto result = ( ...  +  args);   // FOLDING EXPRESSION
+
+        return result;
+    }
+
+    void printer (auto ... args)
+    {
+
+        (std::cout << ... << args);
+    }
+
+    void test_seminar_folding() {
+
+        // int summe = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 ;
+
+        //auto result1 = adder_01(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        //auto result2 = adder_02(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        printer(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+    }
+}
+
+
 namespace Folding {
 
     /* folding examples: introduction
@@ -171,8 +211,13 @@ namespace Folding {
     }
 }
 
+
 void main_folding()
 {
+    using namespace Folding_Seminar;
+    test_seminar_folding();
+    return;
+
     using namespace Folding;
     //test_01();
     //test_02();

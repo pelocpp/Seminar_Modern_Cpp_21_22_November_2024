@@ -648,3 +648,173 @@ C++ 11: JA
 
 Darüber (C++ 17): NEIN.
 
+A) Why ???????????????????????????????????
+
+Transport von Daten über Methodengrenzen hinweg
+-----------------------------------------------
+
+
+
+
+============================================
+
+Klassentemplates
+
+Funktionstemplates
+
+Template Member Function
+
+============================================
+
+Frage: Kann ich einen variadischen Konstruktor bauen ???
+
+Es geht.
+
+============================================
+
+std::initializer_list
+
+Why ?????????????????????????????????
+
+std::vector<>:             Daten ===> HEAP
+
+std::initializer_list<>:   Daten ===> STACK
+
+
+std::initializer_list ist ein Light-Weight Container:
+
+begin(),
+end(),
+size()
+
+==============================================
+
+Ausnahme:
+
+std::vector<int> vec1(10);     == Size: 10, alle vorbelegt: 0
+
+std::vector<int> vec2{ 10 };   == Size: 1,  alle vorbelegt: 10
+
+std::vector<int> vec3(10, 10); == Size: 10, alle vorbelegt: 10
+
+std::vector<int> vec4{10, 10}; == Size: 2,  alle vorbelegt: 10
+
+==============================================
+
+C++ ist eine verdammt schwere Sprache :)
+
+delete
+vs
+delete []
+
+UB Undefined Behaviour
+
+C++ hat das Erbe von C  (void*)
+
+Brüche // Abwärts
+
+===> FAZIT: Nehme // Nimm von C++ nur das, was du kennst // beherrschst.
+
+==============================================
+
+Klassiker:
+
+int n;
+
+// Hat n einen gültigen Wert
+
+if (n == 0)
+
+if (n == -1)
+
+if (n == -22342342)
+
+SAUBER:
+
+int  n;
+bool isValid;
+
+C#:  
+
+===============================================
+
+std::variant:
+
+Eine std::variant-Variable kann Daten unterschiedlichen Typs halten,
+zu einem Zeitpunkt von einem bestimmten Typ.
+
+Excel // Sheets:  Zellen // Cells
+
+Datentyp: Numerisch (int, double), Date, Currency, Zeichenkette, ...
+
+std::variant cell;  // noch zu verbessern
+
+std::variant<int, double, std::string, float> var{ 123 };
+
+Es gibt Ähnlichkeiten zu einer C-Union.
+
+C-Union: Ich könnte eine int - Variable einer union als float auslesen.
+
+union
+{
+    float         m_f;
+    unsigned char m_array[4];
+};
+
+struct Data
+{
+    int selector;   // index = 1
+    union
+    {
+        float         m_f;
+        unsigned char m_array[4];
+    };
+}
+
+
+==========================================
+
+std::println("{}", elem);
+
+std::println("{0}", elem);    // C#
+
+ist identisch zu
+
+printf("%d", elem);  // C
+
+printf("%d %d %d", n1, n2, n3);   // C
+
+std::println("{} {} {}", n1, n2, n3);
+
+std::println("{0} {1} {2}", n1, n2, n3);
+
+=============================================
+
+Was ist Folding:
+
+Operatoren:
+
+int summe = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 ;
+
+Wiederholte Anwendung desselben Operators in einem
+optimieren AUSDRUCK.
+
+Wozu: PERFORMANZ
+
+Why ?????????????????????????????????????????
+
+
+=============================================
+
+C++ und Module 
+
+Ersetzt #include
+
+Bringt es - das Modulkonzept - sonst noch was ????
+
+ÜBERSETZUNGSZEIT:
+
+Precompiled HEADER.
+
+=============================================
+
